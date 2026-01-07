@@ -11,8 +11,8 @@ export const createConversation = async (
     },
     body: JSON.stringify({
       // Chanel Style Advisor Persona
-      persona_id: "Pfc3b5159767",
-      replica_id: "R2324e7fd788",
+      persona_id: "pfc3b5159767",
+      replica_id: "r2324e7fd788",
     }),
   });
 
