@@ -5,7 +5,7 @@ import {
 } from "@/components/DialogWrapper";
 import { screenAtom } from "@/store/screens";
 import { conversationAtom } from "@/store/conversation";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { AlertTriangle, Mic, Video } from "lucide-react";
 import { useDaily, useDailyEvent, useDevices } from "@daily-co/daily-react";
