@@ -29,27 +29,23 @@ import {
 } from "@/utils";
 import { Timer } from "@/components/Timer";
 import { TIME_LIMIT } from "@/config";
-import { niceScoreAtom } from "@/store/game";
-import { naughtyScoreAtom } from "@/store/game";
 import { apiTokenAtom } from "@/store/tokens";
 
 const timeToGoPhrases = [
-  "I'll need to dash off soon—there’s still so much to prepare for Christmas! But let’s make these last moments count.",
-  "The elves are calling me back to the workshop soon, but I've got a little more time for you!",
-  "I'll be heading out soon—the reindeer are getting restless—but I'd love to hear one more thing before I go!",
+  "Our time together is coming to a close soon. Let's make these final moments count.",
+  "I'll need to conclude our session shortly, but I'm here for you for a bit longer.",
+  "We're approaching the end of our consultation. Is there anything else you'd like to discuss?",
 ];
 
 const outroPhrases = [
-  "It's time for me to go now—Christmas magic doesn't make itself! Take care, and I'll see you soon!",
-  "I've got to get back to the North Pole—the workshop needs me! Be good, and Merry Christmas until we meet again!",
-  "I must say goodbye for now—the magic of Christmas calls! Stay on the nice list, and I'll see you soon!",
+  "Thank you for this wonderful consultation. It's been a pleasure assisting you with your style journey.",
+  "Our session has concluded. I hope you found valuable insights today.",
+  "It's time to say goodbye. Thank you for sharing this moment with me.",
 ];
 
 export const Conversation: React.FC = () => {
   const [conversation, setConversation] = useAtom(conversationAtom);
   const [, setScreenState] = useAtom(screenAtom);
-  const [naughtyScore] = useAtom(naughtyScoreAtom);
-  const [niceScore] = useAtom(niceScoreAtom);
   const token = useAtomValue(apiTokenAtom);
 
   const daily = useDaily();
@@ -139,18 +135,19 @@ export const Conversation: React.FC = () => {
     }
     setConversation(null);
     clearSessionTime();
-
-    const naughtyScorePositive = Math.abs(naughtyScore);
-    if (naughtyScorePositive > niceScore) {
-      setScreenState({ currentScreen: "naughtyForm" });
-    } else {
-      setScreenState({ currentScreen: "niceForm" });
-    }
+    setScreenState({ currentScreen: "finalScreen" });
   }, [daily, token]);
 
   return (
     <DialogWrapper>
       <div className="absolute inset-0 size-full">
+        {/* Chanel Logo */}
+        <div className="absolute top-8 left-1/2 -translate-x-1/2 z-20">
+          <h1 className="text-3xl sm:text-4xl font-display tracking-widest text-black drop-shadow-lg">
+            CHANEL
+          </h1>
+        </div>
+
         <Timer />
         {remoteParticipantIds?.length > 0 && (
           <Video
@@ -163,14 +160,13 @@ export const Conversation: React.FC = () => {
           <Video
             id={localSessionId}
             tileClassName="!object-cover"
-            className="absolute bottom-20 right-4 aspect-video h-40 w-24 overflow-hidden rounded-lg border-2 border-primary sm:bottom-12 lg:h-auto lg:w-52"
+            className="absolute bottom-20 right-4 aspect-video h-40 w-24 overflow-hidden rounded-lg border-2 border-black sm:bottom-12 lg:h-auto lg:w-52"
           />
         )}
         <div className="absolute bottom-8 right-1/2 z-10 flex translate-x-1/2 justify-center gap-4">
           <Button
             size="icon"
-            className=""
-            variant="secondary"
+            className="bg-white hover:bg-gray-200 text-black"
             onClick={toggleAudio}
           >
             {!isMicEnabled ? (
@@ -181,8 +177,7 @@ export const Conversation: React.FC = () => {
           </Button>
           <Button
             size="icon"
-            className=""
-            variant="secondary"
+            className="bg-white hover:bg-gray-200 text-black"
             onClick={toggleVideo}
           >
             {!isCameraEnabled ? (
@@ -193,8 +188,7 @@ export const Conversation: React.FC = () => {
           </Button>
           <Button
             size="icon"
-            className="bg-[rgba(251,36,71,0.80)] backdrop-blur hover:bg-[rgba(251,36,71,0.60)]"
-            variant="secondary"
+            className="bg-black hover:bg-chanel-dark-gray text-white"
             onClick={leaveConversation}
           >
             <PhoneIcon className="size-6 rotate-[135deg]" />
